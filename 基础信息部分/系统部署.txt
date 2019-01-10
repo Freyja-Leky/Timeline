@@ -1,0 +1,5 @@
+WEB部分：web配置 服务器Tomcat9
+PC部分：JAVA SWING+Mysql本地数据库
+功能测试部分：selenium-IDE+手测
+性能测试部分：loadrunner12.55+Chrome
+	        Apache jmeter-5.0
