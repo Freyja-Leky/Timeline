@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Time.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">test (2) (2019年1月6日 下午3:06:32)</a> &gt; <a href="../../index.html" class="el_group">Timeline</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">bean</a> &gt; <span class="el_source">Time.java</span></div><h1>Time.java</h1><pre class="source lang-java linenums">package bean;
+
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+<span class="nc" id="L7">public class Time {</span>
+	public String getTime(Timestamp time) {
+<span class="nc" id="L9">		Timestamp current = new Timestamp(System.currentTimeMillis());</span>
+<span class="nc" id="L10">		DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span>
+<span class="nc" id="L11">		String returnTime = df.format(time);</span>
+
+<span class="nc" id="L13">		long delta = (current.getTime() - time.getTime()) / 1000; // 秒</span>
+<span class="nc bnc" id="L14" title="All 2 branches missed.">		if (delta &lt; 60)</span>
+<span class="nc" id="L15">			returnTime = delta + &quot; seconds ago&quot;;</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">		else if (delta &lt; 3600) {</span>
+<span class="nc" id="L17">			delta = delta / 60;</span>
+<span class="nc" id="L18">			returnTime = delta + &quot; minutes ago&quot;;</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">		} else if (delta &lt; 21600) {</span>
+<span class="nc" id="L20">			delta = delta / (60*60);</span>
+<span class="nc" id="L21">			returnTime = delta + &quot; hours ago&quot;;</span>
+		}
+
+<span class="nc" id="L24">		return returnTime;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>test (2) (2019年1月6日 下午3:06:32)</div></body></html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UserDaoTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">test (2) (2019年1月6日 下午3:06:32)</a> &gt; <a href="../../index.html" class="el_group">Timeline</a> &gt; <a href="../index.html" class="el_bundle">test</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">UserDaoTest.java</span></div><h1>UserDaoTest.java</h1><pre class="source lang-java linenums">import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import bean.User;
+import dao.UserDao;
+
+public class UserDaoTest {
+	
+	private UserDao userdao;
+	
+<span class="fc" id="L12">	public UserDaoTest() {</span>
+		// TODO Auto-generated constructor stub
+<span class="fc" id="L14">		userdao = new UserDao();</span>
+<span class="fc" id="L15">	}</span>
+
+	@Test
+	public void select_name_heyadi_in_Chinese() {
+<span class="fc" id="L19">		User realUser = userdao.selectByName(&quot;何雅迪&quot;);</span>
+<span class="fc" id="L20">		User expectUser = new User(1,&quot;何雅迪&quot;,&quot;123456&quot;);</span>
+<span class="fc" id="L21">		assertEquals(expectUser.getId(), realUser.getId());</span>
+<span class="fc" id="L22">		assertEquals(expectUser.getUsername(), realUser.getUsername());</span>
+<span class="fc" id="L23">		assertEquals(expectUser.getPassword(), realUser.getPassword());</span>
+<span class="fc" id="L24">	}</span>
+	
+	@Test
+	public void select_name_hyd_in_letter() {
+<span class="fc" id="L28">		User realUser = userdao.selectByName(&quot;hyd&quot;);</span>
+<span class="fc" id="L29">		User expectUser = new User(10,&quot;hyd&quot;,&quot;123456&quot;);</span>
+<span class="fc" id="L30">		assertEquals(expectUser.getId(), realUser.getId());</span>
+<span class="fc" id="L31">		assertEquals(expectUser.getUsername(), realUser.getUsername());</span>
+<span class="fc" id="L32">		assertEquals(expectUser.getPassword(), realUser.getPassword());</span>
+<span class="fc" id="L33">	}</span>
+	
+	@Test
+	public void select_name_abcdefg() {
+<span class="fc" id="L37">		User realUser = userdao.selectByName(&quot;abcdefg&quot;);</span>
+<span class="fc" id="L38">		User expectUser = null;</span>
+<span class="fc" id="L39">		assertEquals(expectUser, realUser);</span>
+<span class="fc" id="L40">	}</span>
+	
+	@Test
+	public void insert_exist_user_hyd() {
+<span class="fc" id="L44">		User user = new User(&quot;何雅迪&quot;,&quot;123456&quot;);</span>
+<span class="fc" id="L45">		boolean realResult = userdao.insert(user);</span>
+<span class="fc" id="L46">		boolean expectResult = false;</span>
+<span class="fc" id="L47">		assertEquals(expectResult, realResult);</span>
+<span class="fc" id="L48">	}</span>
+	
+	@Test
+	public void insert_nonexist_user_abcdefg() {
+<span class="fc" id="L52">		User user = new User(&quot;abcdefghijk&quot;,&quot;456789&quot;);</span>
+<span class="fc" id="L53">		boolean realResult = userdao.insert(user);</span>
+<span class="fc" id="L54">		boolean expectResult = true;</span>
+<span class="fc" id="L55">		assertEquals(expectResult, realResult);</span>
+		
+<span class="fc" id="L57">		User realUser = userdao.selectByName(&quot;abcdefghijk&quot;);</span>
+<span class="fc" id="L58">		User expectUser = new User(26,&quot;abcdefghijk&quot;,&quot;456789&quot;);</span>
+<span class="fc" id="L59">		assertEquals(expectUser.getId(), realUser.getId());</span>
+<span class="fc" id="L60">		assertEquals(expectUser.getUsername(), realUser.getUsername());</span>
+<span class="fc" id="L61">		assertEquals(expectUser.getPassword(), realUser.getPassword());</span>
+<span class="fc" id="L62">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>test (2) (2019年1月6日 下午3:06:32)</div></body></html>

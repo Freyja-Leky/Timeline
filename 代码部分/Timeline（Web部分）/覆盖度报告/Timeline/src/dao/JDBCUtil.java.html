@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>JDBCUtil.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">test (2) (2019年1月6日 下午3:06:32)</a> &gt; <a href="../../index.html" class="el_group">Timeline</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">dao</a> &gt; <span class="el_source">JDBCUtil.java</span></div><h1>JDBCUtil.java</h1><pre class="source lang-java linenums">package dao;
+
+import java.sql.*;
+
+<span class="nc" id="L5">public class JDBCUtil {</span>
+	
+	// JDBC 驱动名及数据库 URL
+    static final String DRIVER = &quot;com.mysql.jdbc.Driver&quot;;  
+    static final String URL = &quot;jdbc:mysql://47.101.195.21:3306/timeline?characterEncoding=utf8&quot;;
+ 
+    // 数据库的用户名与密码，需要根据自己的设置
+    static final String USER = &quot;root&quot;;
+    static final String PASSWORD = &quot;123456&quot;;
+    
+    /*使用静态代码块完成驱动的加载*/
+    static {
+        try {
+<span class="fc" id="L18">            Class.forName(DRIVER);</span>
+<span class="pc" id="L19">        } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L20">            e.printStackTrace();</span>
+        }
+<span class="fc" id="L22">    }</span>
+    
+    /*提供连接的方法*/
+    public static Connection getConnection() {
+<span class="fc" id="L26">        Connection con = null;</span>
+        try {
+<span class="fc" id="L28">            con = DriverManager.getConnection(URL, USER, PASSWORD);</span>
+<span class="pc" id="L29">        } catch (Exception e) {</span>
+<span class="nc" id="L30">            e.printStackTrace();</span>
+        }
+<span class="fc" id="L32">        return con;</span>
+    }
+
+    /*关闭连接的方法*/
+    public static void close(ResultSet rs, Statement stmt, Connection con) {
+        try {
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            if (rs != null)</span>
+<span class="fc" id="L39">                rs.close();</span>
+<span class="pc" id="L40">        } catch (Exception ex) {</span>
+<span class="nc" id="L41">            ex.printStackTrace();</span>
+        }
+        try {
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            if (stmt != null)</span>
+<span class="fc" id="L45">                stmt.close();</span>
+<span class="pc" id="L46">        } catch (Exception ex) {</span>
+<span class="nc" id="L47">            ex.printStackTrace();</span>
+        }
+        try {
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">            if (con != null)</span>
+<span class="fc" id="L51">                con.close();</span>
+<span class="pc" id="L52">        } catch (Exception ex) {</span>
+<span class="nc" id="L53">            ex.printStackTrace();</span>
+        }
+<span class="fc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>test (2) (2019年1月6日 下午3:06:32)</div></body></html>

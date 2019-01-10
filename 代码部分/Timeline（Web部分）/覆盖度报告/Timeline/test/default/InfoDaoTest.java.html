@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>InfoDaoTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">test (2) (2019年1月6日 下午3:06:32)</a> &gt; <a href="../../index.html" class="el_group">Timeline</a> &gt; <a href="../index.html" class="el_bundle">test</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">InfoDaoTest.java</span></div><h1>InfoDaoTest.java</h1><pre class="source lang-java linenums">import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Test;
+
+import bean.Info;
+import bean.User;
+import dao.InfoDao;
+
+public class InfoDaoTest {
+
+	private InfoDao infodao;
+	
+<span class="fc" id="L17">	public InfoDaoTest() {</span>
+<span class="fc" id="L18">		infodao = new InfoDao();</span>
+<span class="fc" id="L19">	}</span>
+	
+	@Test
+	public void select_latest_ten_info() {
+<span class="fc" id="L23">		List&lt;Info&gt; realInfo = infodao.selectTen(0);</span>
+		
+<span class="fc" id="L25">		User user = new User(3,&quot;Yadeah He&quot;,null);</span>
+<span class="fc" id="L26">		Timestamp ts = new Timestamp(System.currentTimeMillis());  </span>
+<span class="fc" id="L27">        String tsStr = &quot;2019-01-05 12:14:42&quot;;  </span>
+        try {  
+<span class="fc" id="L29">            ts = Timestamp.valueOf(tsStr);  </span>
+<span class="pc" id="L30">        } catch (Exception e) {  </span>
+<span class="nc" id="L31">            e.printStackTrace();  </span>
+        }
+<span class="fc" id="L33">		Info info1 = new Info(25, user, ts, &quot;&quot;, null);</span>
+		
+<span class="fc" id="L35">		User user2 = new User(5,&quot;王黎琳&quot;,null);</span>
+<span class="fc" id="L36">		Timestamp ts2 = new Timestamp(System.currentTimeMillis());</span>
+<span class="fc" id="L37">		tsStr = &quot;2018-12-23 19:38:09&quot;;</span>
+		try {  
+<span class="fc" id="L39">            ts2 = Timestamp.valueOf(tsStr);  </span>
+<span class="pc" id="L40">        } catch (Exception e) {  </span>
+<span class="nc" id="L41">            e.printStackTrace();  </span>
+        }
+<span class="fc" id="L43">		Info info2 = new Info(16, user2, ts2, &quot;根据 ISO/IEC 25000，内部质量是指在特定的使用条件下，产品能够满足明示的和隐含的需求所明确具备能力的全部固有特性，体现了产品的内在质量。外部质量是指在特定的使用条件下，产品能够满足明示和隐含的需求的程度，是产品质量的外部（实际）表现。从上述定义可知，外部质量和内部质量模型基本一致&quot;, null);</span>
+		
+<span class="fc" id="L45">		assertEquals(10, realInfo.size());</span>
+		
+<span class="fc" id="L47">		Info real1 = realInfo.get(0);</span>
+<span class="fc" id="L48">		assertEquals(info1.getId(), real1.getId());</span>
+<span class="fc" id="L49">		assertEquals(info1.getUser().getId(), real1.getUser().getId());</span>
+<span class="fc" id="L50">		assertEquals(info1.getTime(), real1.getTime());</span>
+<span class="fc" id="L51">		assertEquals(info1.getText(), real1.getText());</span>
+		
+<span class="fc" id="L53">		Info real2 = realInfo.get(9);</span>
+<span class="fc" id="L54">		assertEquals(info2.getId(), real2.getId());</span>
+<span class="fc" id="L55">		assertEquals(info2.getUser().getId(), real2.getUser().getId());</span>
+<span class="fc" id="L56">		assertEquals(info2.getTime(), real2.getTime());</span>
+<span class="fc" id="L57">		assertEquals(info2.getText(), real2.getText());</span>
+<span class="fc" id="L58">		assertEquals(8, real2.getPictures().size());</span>
+<span class="fc" id="L59">		assertEquals(&quot;img/5.jpg&quot;, real2.getPictures().get(0));</span>
+<span class="fc" id="L60">		assertEquals(&quot;img/7.jpg&quot;, real2.getPictures().get(7));</span>
+<span class="fc" id="L61">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>test (2) (2019年1月6日 下午3:06:32)</div></body></html>

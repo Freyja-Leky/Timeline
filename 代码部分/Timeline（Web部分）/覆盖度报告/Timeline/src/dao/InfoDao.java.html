@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>InfoDao.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">test (2) (2019年1月6日 下午3:06:32)</a> &gt; <a href="../../index.html" class="el_group">Timeline</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">dao</a> &gt; <span class="el_source">InfoDao.java</span></div><h1>InfoDao.java</h1><pre class="source lang-java linenums">package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import bean.Info;
+import bean.User;
+
+<span class="fc" id="L14">public class InfoDao {</span>
+<span class="fc" id="L15">	private final String table1 = &quot;user&quot;;</span>
+<span class="fc" id="L16">	private final String table2 = &quot;info&quot;;</span>
+<span class="fc" id="L17">	private final String table3 = &quot;picture&quot;;</span>
+	
+	/**
+	 * 
+	 * get info select
+	 * 
+	 */
+	public ArrayList&lt;Info&gt; selectTen(int start) {
+<span class="fc" id="L25">		List&lt;Info&gt; infos = new ArrayList&lt;Info&gt;();</span>
+		
+<span class="fc" id="L27">		Connection conn = JDBCUtil.getConnection();</span>
+<span class="fc" id="L28">		String sql = &quot;select * from &quot; + table1 + &quot; natural join &quot; + table2 + </span>
+<span class="fc" id="L29">				&quot; order by time desc limit &quot; + start + &quot;,10&quot;;</span>
+<span class="fc" id="L30">		PreparedStatement pstmt = null;</span>
+<span class="fc" id="L31">		ResultSet rs = null;</span>
+		
+		try {
+<span class="fc" id="L34">			pstmt = (PreparedStatement) conn.prepareStatement(sql);</span>
+<span class="fc" id="L35">			rs = pstmt.executeQuery();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L37">				int userId = rs.getInt(1);</span>
+<span class="fc" id="L38">				String userName = rs.getString(2);</span>
+<span class="fc" id="L39">				User user = new User(userId,userName,null);</span>
+<span class="fc" id="L40">				int infoId = rs.getInt(4);</span>
+<span class="fc" id="L41">				Timestamp time = rs.getTimestamp(5);</span>
+<span class="fc" id="L42">				String text = rs.getString(6);</span>
+<span class="fc" id="L43">				List&lt;String&gt; pictures = selectFromTable2(infoId);</span>
+<span class="fc" id="L44">				Info info = new Info(infoId,user,time,text,pictures);</span>
+<span class="fc" id="L45">				infos.add(info);</span>
+			}
+			
+<span class="pc" id="L48">		} catch (SQLException e) {</span>
+			// TODO: handle exception
+<span class="nc" id="L50">			e.printStackTrace();</span>
+		} finally {
+<span class="fc" id="L52">			JDBCUtil.close(rs, pstmt, conn);</span>
+		}
+		
+<span class="fc" id="L55">		return (ArrayList&lt;Info&gt;)infos;</span>
+	}
+	
+	/**
+	 * 
+	 * get picture
+	 * 
+	 */
+	private ArrayList&lt;String&gt; selectFromTable2(int infoId) {
+<span class="fc" id="L64">		List&lt;String&gt; images = new ArrayList&lt;String&gt;();</span>
+		
+<span class="fc" id="L66">		Connection conn = JDBCUtil.getConnection();</span>
+<span class="fc" id="L67">		String sql = &quot;select * from &quot; + table3 + &quot; where infoId = &quot; + infoId;</span>
+<span class="fc" id="L68">		PreparedStatement pstmt = null;</span>
+<span class="fc" id="L69">		ResultSet rs = null;</span>
+		
+		try {
+<span class="fc" id="L72">			pstmt = (PreparedStatement) conn.prepareStatement(sql);</span>
+<span class="fc" id="L73">			rs = pstmt.executeQuery();</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">			while(rs.next()) {</span>
+<span class="fc" id="L75">				String img = rs.getString(3);</span>
+<span class="fc" id="L76">				images.add(img);</span>
+			}
+<span class="pc" id="L78">		} catch (SQLException e) {</span>
+			// TODO: handle exception
+<span class="nc" id="L80">			e.printStackTrace();</span>
+		} finally {
+<span class="fc" id="L82">			JDBCUtil.close(rs, pstmt, conn);</span>
+		}
+		
+<span class="fc" id="L85">		return (ArrayList&lt;String&gt;)images;</span>
+	}
+	
+	/**
+	 * 
+	 * insert info into table1
+	 * 
+	 */
+	/*public boolean insertIntoTable2(Info info) {
+		boolean result = false;
+		
+		Connection conn = JDBCUtil.getConnection();
+		String sql = &quot;insert into &quot; + table2 + &quot;(userId,time,text) values (?,?,?)&quot;;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, info.getUser().getId());
+			pstmt.setTimestamp(2, info.getTime());
+			pstmt.setString(3, info.getText());
+
+			if(pstmt.executeUpdate() != 0) {
+				rs = pstmt.getGeneratedKeys();
+				if(rs.next())
+					info.setId(rs.getInt(1));
+			}
+			
+			List&lt;String&gt; pictures = info.getPictures();
+			if(pictures.size() &gt; 0)
+				result = insertIntoTable3(info);
+			else
+				result = true;
+
+		} catch (SQLException e) {
+			// TODO: handle exception
+ 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		
+		return result;
+	}*/
+	
+	/**
+	 * 
+	 * insert picture
+	 * 
+	 */
+	/*private boolean insertIntoTable3(Info info) {
+		boolean result = false;
+		
+		Connection conn = JDBCUtil.getConnection();
+		String sql = &quot;insert into &quot; + table3 + &quot;(infoId,picture) values (?,?)&quot;; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = (PreparedStatement) conn.prepareStatement(sql);
+			pstmt.setInt(1, info.getId());
+			
+			List&lt;String&gt; pictures = info.getPictures();
+			for(int i = 0; i &lt; pictures.size(); i++) {
+				String picture = pictures.get(i);
+				pstmt.setString(2, picture);
+				pstmt.executeUpdate();
+			}
+			
+			result = true;
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(rs, pstmt, conn);
+		}
+		
+		return result;
+	}*/
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>test (2) (2019年1月6日 下午3:06:32)</div></body></html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Info.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">test (2) (2019年1月6日 下午3:06:32)</a> &gt; <a href="../../index.html" class="el_group">Timeline</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">bean</a> &gt; <span class="el_source">Info.java</span></div><h1>Info.java</h1><pre class="source lang-java linenums">package bean;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Info {
+	private int id;
+	private User user;
+	private Timestamp time;
+	private String text;
+	private List&lt;String&gt; pictures;
+	
+	public Info() {
+<span class="nc" id="L15">		super();</span>
+<span class="nc" id="L16">		pictures = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L17">	}</span>
+
+	public Info(int id, User user, Timestamp time, String text, List&lt;String&gt; pictures) {
+<span class="fc" id="L20">		super();</span>
+<span class="fc" id="L21">		this.id = id;</span>
+<span class="fc" id="L22">		this.user = user;</span>
+<span class="fc" id="L23">		this.time = time;</span>
+<span class="fc" id="L24">		this.text = text;</span>
+<span class="fc" id="L25">		this.pictures = pictures;</span>
+<span class="fc" id="L26">	}</span>
+
+	public int getId() {
+<span class="fc" id="L29">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="nc" id="L33">		this.id = id;</span>
+<span class="nc" id="L34">	}</span>
+
+	public User getUser() {
+<span class="fc" id="L37">		return user;</span>
+	}
+
+	public void setUser(User user) {
+<span class="nc" id="L41">		this.user = user;</span>
+<span class="nc" id="L42">	}</span>
+
+	public Timestamp getTime() {
+<span class="fc" id="L45">		return time;</span>
+	}
+
+	public void setTime(Timestamp time) {
+<span class="nc" id="L49">		this.time = time;</span>
+<span class="nc" id="L50">	}</span>
+
+	public String getText() {
+<span class="fc" id="L53">		return text;</span>
+	}
+
+	public void setText(String text) {
+<span class="nc" id="L57">		this.text = text;</span>
+<span class="nc" id="L58">	}</span>
+
+	public List&lt;String&gt; getPictures() {
+<span class="fc" id="L61">		return pictures;</span>
+	}
+
+	public void setPictures(List&lt;String&gt; pictures) {
+<span class="nc" id="L65">		this.pictures = pictures;</span>
+<span class="nc" id="L66">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>test (2) (2019年1月6日 下午3:06:32)</div></body></html>
